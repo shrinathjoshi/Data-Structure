@@ -14,3 +14,4 @@
 13. Avl tree
 14. Red Black Tree
 15. KD tree
+16. Segment Tree
