@@ -14,4 +14,4 @@
 13. Avl tree
 14. Red Black Tree
 15. KD tree
-16. Segment Tree
+16. [Segment Tree](https://github.com/shrinathjoshi/Data-Structure/tree/master/Data-Structure/SegementTree)
