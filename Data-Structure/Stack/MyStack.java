@@ -56,7 +56,7 @@ public class MyStack<T> {
     }
 
     public boolean isEmpty(){
-        return (top == null)?true:false;
+        return (top == null);
     }
 
     public List<T> printStack(){
