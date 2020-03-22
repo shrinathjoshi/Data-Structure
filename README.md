@@ -1,4 +1,12 @@
 # Data-Structure
+
+### Stack ###
+
+
+
+
+
+
 1. Arrays
 2. Stack
 3. Queue
