@@ -15,15 +15,16 @@ import java.util.List;
  *      2. pop() - remove an element from the stack
  *      3. peek() - return the top of stack
  *      4. isEmpty() - returns true if the stack is empty
+ *      5. printStack() - prints the elements of the stack 
  * 
  */
 public class MyStack<T> {
 
-    private StackNode top;
+    private StackNode<T> top;
 
     class StackNode<T>{
         private T data;
-        private StackNode next;
+        private StackNode<T> next;
 
         public StackNode(T data) {
             this.data = data;
@@ -36,7 +37,7 @@ public class MyStack<T> {
     }
 
     public void push(T data){
-        StackNode element = new StackNode(data);
+        StackNode<T> element = new StackNode<>(data);
         element.next=top;
         top=element;
     }
@@ -58,9 +59,9 @@ public class MyStack<T> {
         return (top == null)?true:false;
     }
 
-    public List printStack(){
+    public List<T> printStack(){
         if(top == null) throw new EmptyStackException();
-        StackNode temp = top;
+        StackNode<T> temp = top;
         ArrayList<T> result=new ArrayList<>();
         while (temp != null)
         {
