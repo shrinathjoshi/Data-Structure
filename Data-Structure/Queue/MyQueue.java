@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * @author Shrinath Joshi
  * 
- * MyQueue.java
+ * MyQueue.java is a linkedList implementation of Queue
  * 
  * Queue is a data structure which uses LIFO ordering
  * It uses the following operations
