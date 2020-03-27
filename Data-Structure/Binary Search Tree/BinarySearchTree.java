@@ -1,8 +1,8 @@
 package com.util.BinarySearchTree;
 
 /**
- * BinarySearchTree.java 
  * @author Shrinath Joshi
+ * BinarySearchTree.java 
  */
 public class BinarySearchTree<T  extends Comparable<T>> {
 
@@ -26,6 +26,10 @@ public class BinarySearchTree<T  extends Comparable<T>> {
         public void setData(T data) {
         	this.data = data;
         }
+    }
+    
+    public TreeNode<T> getRoot(){
+    	return this.root;
     }
 
     public int compare(T x, T y)
@@ -200,26 +204,26 @@ public class BinarySearchTree<T  extends Comparable<T>> {
 		return null;
 	}
 
-	public boolean search(T element) {
+	public TreeNode<T> search(T element) {
     	return searchElement(root,element);
     }
     
-    private boolean searchElement(BinarySearchTree<T>.TreeNode<T> root, T element) {
+    private TreeNode<T> searchElement(BinarySearchTree<T>.TreeNode<T> root, T element) {
 		if(root == null)
-			return false;
+			return null;
 		else
 		{
 			TreeNode<T> temp = root;
 			while(temp!= null) {
 				
 				if(compare(temp.getData(),element) == 0) 
-					return true;
+					return temp;
 				if(compare(temp.getData(),element)>0)
 					temp=temp.left;
 				else
 					temp=temp.right;	
 			}
-			return false;
+			return null;
 		}
 	}
 
@@ -261,6 +265,70 @@ public class BinarySearchTree<T  extends Comparable<T>> {
         }
     }
 
+    public TreeNode<T> findSuccessor(T node){
+    	return getSucessor(root,node);
+    }
 
+	private BinarySearchTree<T>.TreeNode<T> getSucessor(BinarySearchTree<T>.TreeNode<T> root,
+			T node) {
+		
+		if(root == null) return null;
+		TreeNode<T> current = search(node);
+		if(current == null)
+		{
+			System.out.println("Node not present");
+			return null;
+		}
+
+		if(current.right != null) {
+			return getMinimum(current.right);
+		}
+		
+		TreeNode<T> successor = null;
+		TreeNode<T> ancestor = root;
+		while(ancestor!=null) {
+			if(compare(ancestor.getData(), current.getData())>0)
+			{
+				successor = ancestor;
+				ancestor=ancestor.left;
+			}
+			else
+				ancestor=ancestor.right;
+		}
+		return successor;
+	}
+
+	public BinarySearchTree<T>.TreeNode<T> findPredecessor(T node) {
+		return getPredecessor(root,node);
+	}
+
+	private BinarySearchTree<T>.TreeNode<T> getPredecessor(BinarySearchTree<T>.TreeNode<T> root, T node) {
+		if(root == null) return null;
+		TreeNode<T> current = search(node);
+		if(current == null) {
+			System.out.println(" Node not found");
+			return null;
+		}
+		
+		if(current.left != null) {
+			return getMax(current.left);
+		}
+		
+		TreeNode<T> predecessor = null;
+		TreeNode<T> ancestor = root;
+		while(ancestor != null) {
+			if(compare(ancestor.getData(), node)<0) {
+				predecessor=ancestor;
+				ancestor=ancestor.right;
+			}
+			else
+				ancestor=ancestor.left;	
+		}
+		
+		return predecessor;
+		
+	}
+
+    
 
 }

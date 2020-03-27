@@ -19,9 +19,7 @@ public class BinarySearchTreeDemo {
     	       
     	bst.inorder();
         
-       System.out.println(bst.search(20));
-       System.out.println(bst.search(2));
-       
+      System.out.println(); 
        System.out.print("delete 1 - "); bst.delete(1);
        bst.inorder();
        System.out.println();
@@ -40,18 +38,23 @@ public class BinarySearchTreeDemo {
        
        System.out.print("delete 30 - ");bst.delete(30);
        bst.inorder();
+      
+       System.out.println(bst.getRoot().getData());
+       System.out.println("Sucessor of 22 is " + bst.findSuccessor(22).getData()); 
+       System.out.println("Predecessor of 22 is "+ bst.findPredecessor(22).getData());
        
-        
     }
 }
 
 /*
 OUTPUT:-
-1 5 15 17 22 30 45 55 58 60 70 false
-false
+1 5 15 17 22 30 45 55 58 60 70 
 delete 1 - 5 15 17 22 30 45 55 58 60 70 
 delete 15 - 5 17 22 30 45 55 58 60 70 
 delete 5 - 17 22 30 45 55 58 60 70 
 delete 45 - 17 22 30 55 58 60 70 
-delete 30 - 17 22 55 58 60 70 
+delete 30 - 17 22 55 58 60 70 22
+Sucessor of 22 is 55
+Predecessor of 22 is 17
+
 */ 
