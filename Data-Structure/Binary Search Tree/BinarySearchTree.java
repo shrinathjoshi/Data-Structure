@@ -1,5 +1,11 @@
 package com.util.BinarySearchTree;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import com.util.BinarySearchTree.BinarySearchTree.TreeNode;
+
 /**
  * @author Shrinath Joshi
  * BinarySearchTree.java 
@@ -76,17 +82,8 @@ public class BinarySearchTree<T  extends Comparable<T>> {
     		return;
     	
     	TreeNode<T> parent=root;
-    	TreeNode<T> nodeToDelete = root;
-    	while(nodeToDelete != null) {
-    		if(compare(nodeToDelete.getData(),element) > 0) {
-    			nodeToDelete=nodeToDelete.left;
-    		}
-    		else if(compare(nodeToDelete.getData(),element) < 0) {
-    			nodeToDelete=nodeToDelete.right;
-    		}
-    		else break;
-    	}
-
+    	TreeNode<T> nodeToDelete = search(element);
+   
     	if(nodeToDelete == null)
     	{
     		System.out.println("Node not found");
@@ -94,9 +91,6 @@ public class BinarySearchTree<T  extends Comparable<T>> {
     	}
     	
     	//Node to be deleted is a leaf node
-    	
-    	// check if root node is to be deleted
-    	
     	if(nodeToDelete.left == null && nodeToDelete.right == null)
     	{
     		if(root == nodeToDelete)
@@ -150,9 +144,11 @@ public class BinarySearchTree<T  extends Comparable<T>> {
     		parent.right=nodeToDelete.right;
 	}
 
+    
 	private BinarySearchTree<T>.TreeNode<T> getMax(BinarySearchTree<T>.TreeNode<T> root) {
-		// TODO Auto-generated method stub
+	
 		if(root == null) return null;
+		
 		TreeNode<T> temp = root;
 		while(temp.right!=null)
 			temp=temp.right;
@@ -163,17 +159,18 @@ public class BinarySearchTree<T  extends Comparable<T>> {
 	private BinarySearchTree<T>.TreeNode<T> getFather(BinarySearchTree<T>.TreeNode<T> root,
 			BinarySearchTree<T>.TreeNode<T> nodeToDelete) {
 
-		TreeNode<T> q =root;
+		TreeNode<T> father = root;
 		if(root == nodeToDelete)
 			return null;
-		while(q!=null)
+		
+		while(father!=null)
 		{
-			if(q.left == nodeToDelete || q.right == nodeToDelete)
-				return q;
-			if(compare(q.getData(), nodeToDelete.getData())>0)
-				q=q.left;
+			if(father.left == nodeToDelete || father.right == nodeToDelete)
+				return father;
+			if(compare(father.getData(), nodeToDelete.getData())>0)
+				father=father.left;
 			else
-				q=q.right;
+				father=father.right;
 		}
 		return null;
 		}
@@ -229,14 +226,17 @@ public class BinarySearchTree<T  extends Comparable<T>> {
 
 	public void inorder(){
         inorderRecursive(root);
-    }
+        inorderIterative(root);
+	}
     
     public void preorder() {
     	preorderRecursive(root);
+    	preorderIterative(root);
     }
     
     public void postorder() {
     	postorderRecursive(root);
+    	postorderInterative(root);
     }
     public void inorderRecursive(TreeNode<T> root){
         if(root!= null)
@@ -324,11 +324,99 @@ public class BinarySearchTree<T  extends Comparable<T>> {
 			else
 				ancestor=ancestor.left;	
 		}
-		
 		return predecessor;
 		
 	}
-
-    
+	
+	
+	public void preorderIterative(TreeNode<T> root) {
+		if(root == null) return ;
+		
+		Stack<TreeNode<T>> stack = new Stack<TreeNode<T>>();
+		stack.add(root);
+		TreeNode<T> temp=root;
+		
+		while(!stack.isEmpty()) {
+			
+			while(temp!= null)
+			{
+				System.out.print(temp.getData()+" ");
+				if(temp.left != null)
+				{
+					stack.add(temp.left);
+				}
+				temp=temp.left;
+			}
+			
+			TreeNode<T> top = stack.pop();
+			if(top.right!=null) {
+				stack.add(top.right);
+				temp=top.right;
+			}
+		}
+	       System.out.println();
+		
+	}
+	
+	public void inorderIterative(TreeNode<T> root) {
+		
+		if(root == null) return ;
+		
+		Stack<TreeNode<T>> stack =new Stack<TreeNode<T>>();
+		stack.add(root);
+		
+		TreeNode<T> temp = root;
+		while(!stack.isEmpty()) {
+			
+			while(temp.left!=null) {
+				stack.add(temp.left);
+				temp=temp.left;
+			}
+			
+			TreeNode<T> top = stack.pop();
+			System.out.print(top.getData()+" ");
+			
+			if(top.right != null) {
+				stack.add(top.right);
+				temp=top.right;
+			}
+			
+		}
+	    System.out.println();
+	}
+	
+	
+	public void postorderInterative(TreeNode<T> root) {
+		
+		if(root == null) return ;
+		
+		List<TreeNode<T>> visited = new ArrayList<TreeNode<T>>();
+		Stack<TreeNode<T>> stack = new Stack<>();
+		stack.add(root);
+		TreeNode<T> temp = root;
+		
+		while(!stack.isEmpty()) {
+			
+			while(temp.left != null)
+			{
+				stack.add(temp.left);
+				temp=temp.left;
+			}
+			
+			TreeNode<T> top = stack.peek();
+			
+			if(top.right == null || visited.contains(top.right)) {
+				System.out.print(top.getData()+" ");
+				visited.add(stack.pop());
+			}
+			else
+			{
+				temp=top.right;
+				stack.add(top.right);
+			}
+			
+		}
+		
+	}
 
 }
